@@ -6,8 +6,6 @@ namespace CodingChallenge.Application
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
-            services.AddTransient<ICreditLineCalculator, CreditLineCalculator>();
-            
             return services;
         }
     }

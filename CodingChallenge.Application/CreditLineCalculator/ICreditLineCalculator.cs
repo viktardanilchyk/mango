@@ -1,6 +1,6 @@
 ﻿using CodingChallenge.Core;
 
-namespace CodingChallenge.Application
+namespace CodingChallenge.Application.CreditLineCalculator
 {
     public interface ICreditLineCalculator
     {
