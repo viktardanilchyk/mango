@@ -13,5 +13,7 @@ namespace CodingChallenge.Core
         public DateTime ProcessDateTime { get; set; }
         
         public bool IsApproved { get; set; }
+        
+        public string ClientIp { get; set; }
     }
 }

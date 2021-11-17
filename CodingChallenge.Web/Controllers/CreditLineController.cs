@@ -35,9 +35,8 @@ namespace CodingChallenge.Controllers
         [HttpPost]
         public async Task<IActionResult> ApplyCreditLine(ApplyCreditLineRequest creditLineRequest)
         {
-            var ip = HttpContext.GetRequestIp();
             var creditLine = _mapper.Map<CreditLine>(creditLineRequest);
-            var result = await _creditLineService.ProcessCreditLine(creditLine);
+            var result = await _creditLineService.ProcessCreditLine(creditLine, HttpContext.GetRequestIp());
             return Ok(result);
         }
     }

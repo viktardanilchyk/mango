@@ -6,7 +6,7 @@ namespace CodingChallenge.Application.CreditLineService
 {
     public interface ICreditLineService
     {
-        Task<CreditLineRequest> ProcessCreditLine(CreditLine creditLine);
+        Task<CreditLineRequest> ProcessCreditLine(CreditLine creditLine, string ip);
         Task<CreditLineRequest> GetCreditLine(Guid id);
     }
 }

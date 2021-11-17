@@ -15,7 +15,7 @@ namespace CodingChallenge.Application.CreditLineService
             _repository = repository;
         }
 
-        public async Task<CreditLineRequest> ProcessCreditLine(CreditLine creditLine)
+        public async Task<CreditLineRequest> ProcessCreditLine(CreditLine creditLine, string ip)
         {
             var creditLineRequest = new CreditLineRequest();
             var recommendedCreditLine = CreditLineFactory
@@ -24,6 +24,7 @@ namespace CodingChallenge.Application.CreditLineService
 
             creditLineRequest.CreditLine = creditLine;
             creditLineRequest.IsApproved = recommendedCreditLine >= creditLine.RequestedCreditLine;
+            creditLineRequest.ClientIp = ip;
 
             await _repository.CreateAsync(creditLineRequest);
 
