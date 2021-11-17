@@ -4,6 +4,8 @@ namespace CodingChallenge.Core
 {
     public class CreditLine
     {
+        public Guid Id { get; set; }
+
         public FoundingType FoundingType { get; set; }
         
         public decimal CashBalance { get; set; }

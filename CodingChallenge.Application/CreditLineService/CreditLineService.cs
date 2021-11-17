@@ -1,11 +1,21 @@
-﻿using CodingChallenge.Application.CreditLineCalculator;
+﻿using System;
+using System.Threading.Tasks;
+using CodingChallenge.Application.CreditLineCalculator;
 using CodingChallenge.Core;
+using CodingChallenge.Persistence.Repositories;
 
 namespace CodingChallenge.Application.CreditLineService
 {
-    public class CreditLineService
+    public class CreditLineService : ICreditLineService
     {
-        public void ProcessCreditLine(CreditLine creditLine)
+        private readonly ICreditLineRepository _repository;
+
+        public CreditLineService(ICreditLineRepository repository)
+        {
+            _repository = repository;
+        }
+
+        public async Task<CreditLineRequest> ProcessCreditLine(CreditLine creditLine)
         {
             var creditLineRequest = new CreditLineRequest();
             var recommendedCreditLine = CreditLineFactory
@@ -14,6 +24,15 @@ namespace CodingChallenge.Application.CreditLineService
 
             creditLineRequest.CreditLine = creditLine;
             creditLineRequest.IsApproved = recommendedCreditLine >= creditLine.RequestedCreditLine;
+
+            await _repository.CreateAsync(creditLineRequest);
+
+            return creditLineRequest;
+        }
+
+        public Task<CreditLineRequest> GetCreditLine(Guid id)
+        {
+            return _repository.GetAsync(id);
         }
     }
 }

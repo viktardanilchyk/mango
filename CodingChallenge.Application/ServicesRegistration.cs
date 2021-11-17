@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CodingChallenge.Application.CreditLineService;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CodingChallenge.Application
 {
@@ -6,6 +7,8 @@ namespace CodingChallenge.Application
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
+            services.AddTransient<ICreditLineService, CreditLineService.CreditLineService>();
+            
             return services;
         }
     }

@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CodingChallenge.Core\CodingChallenge.Core.csproj" />
+      <ProjectReference Include="..\CodingChallenge.Persistence\CodingChallenge.Persistence.csproj" />
     </ItemGroup>
 
     <ItemGroup>

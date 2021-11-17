@@ -4,7 +4,11 @@ namespace CodingChallenge.Core
 {
     public class CreditLineRequest
     {
-        public CreditLine CreditLine { get; set; }
+        public Guid Id { get; set; }
+        
+        public Guid CreditLineId { get; set; }
+        
+        public virtual CreditLine CreditLine { get; set; }
         
         public DateTime ProcessDateTime { get; set; }
         

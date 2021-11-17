@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
+using CodingChallenge.Application.CreditLineService;
 using CodingChallenge.Core;
 using CodingChallenge.Extensions;
 using CodingChallenge.ViewModels;
@@ -14,19 +16,29 @@ namespace CodingChallenge.Controllers
     {
         private readonly ILogger<CreditLineController> _logger;
         private readonly IMapper _mapper;
+        private readonly ICreditLineService _creditLineService;
 
-        public CreditLineController(ILogger<CreditLineController> logger, IMapper mapper)
+        public CreditLineController(ILogger<CreditLineController> logger, IMapper mapper, ICreditLineService creditLineService)
         {
             _logger = logger;
             _mapper = mapper;
+            _creditLineService = creditLineService;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCreditLine(Guid id)
+        {
+            var result = await _creditLineService.GetCreditLine(id);
+            return Ok(result);
+        }
+        
         [HttpPost]
         public async Task<IActionResult> ApplyCreditLine(ApplyCreditLineRequest creditLineRequest)
         {
             var ip = HttpContext.GetRequestIp();
             var creditLine = _mapper.Map<CreditLine>(creditLineRequest);
-            return Ok();
+            var result = await _creditLineService.ProcessCreditLine(creditLine);
+            return Ok(result);
         }
     }
 }
