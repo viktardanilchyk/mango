@@ -50,7 +50,7 @@ namespace CodingChallenge.Services
                 var latestCreditLines =
                     await _creditLineService.GetLatestCreditLines(ip, _options.DeclinedRequestLimitCount);
 
-                if (latestCreditLines.Count(x => !x.IsApproved) > _options.DeclinedRequestLimitCount)
+                if (latestCreditLines.Count(x => !x.IsApproved) == _options.DeclinedRequestLimitCount)
                 {
                     return "A sales agent will contact you";
                 }
