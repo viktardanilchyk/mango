@@ -1,15 +1,25 @@
 using System;
 using CodingChallenge.Application;
+using CodingChallenge.Configuration;
 using CodingChallenge.Persistence;
+using CodingChallenge.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace CodingChallenge
 {
     public class Startup
     {
+        private IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -20,6 +30,10 @@ namespace CodingChallenge
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.RegisterServices();
             services.RegisterPersistence();
+            
+            services.AddScoped<RequestLimitFilterAttribute>();
+            services.AddScoped<IRequestLimitService, RequestLimitService>();
+            services.Configure<RequestLimitOptions>(_configuration.GetSection(nameof(RequestLimitOptions)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

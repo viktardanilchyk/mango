@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodingChallenge.Application.CreditLineCalculator;
 using CodingChallenge.Core;
@@ -25,6 +26,7 @@ namespace CodingChallenge.Application.CreditLineService
             creditLineRequest.CreditLine = creditLine;
             creditLineRequest.IsApproved = recommendedCreditLine >= creditLine.RequestedCreditLine;
             creditLineRequest.ClientIp = ip;
+            creditLineRequest.ProcessDateTime = DateTime.UtcNow;
 
             await _repository.CreateAsync(creditLineRequest);
 
@@ -34,6 +36,21 @@ namespace CodingChallenge.Application.CreditLineService
         public Task<CreditLineRequest> GetCreditLine(Guid id)
         {
             return _repository.GetAsync(id);
+        }
+        
+        public Task<int> GetApprovedCreditLinesCountWithinMilliseconds(int milliseconds, string ip)
+        {
+            return _repository.GetApprovedCreditLinesCountWithinMilliseconds(milliseconds, ip);
+        }
+
+        public Task<CreditLineRequest> GetLatestCreditLine(string ip)
+        {
+            return _repository.GetLatestCreditLine(ip);
+        }
+
+        public Task<IList<CreditLineRequest>> GetLatestCreditLines(string ip, int limit)
+        {
+            return _repository.GetLatestCreditLines(ip, limit);
         }
     }
 }

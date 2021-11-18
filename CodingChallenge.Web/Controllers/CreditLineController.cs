@@ -33,6 +33,7 @@ namespace CodingChallenge.Controllers
         }
         
         [HttpPost]
+        [ServiceFilter(typeof(RequestLimitFilterAttribute))]
         public async Task<IActionResult> ApplyCreditLine(ApplyCreditLineRequest creditLineRequest)
         {
             var creditLine = _mapper.Map<CreditLine>(creditLineRequest);
