@@ -31,14 +31,14 @@ namespace CodingChallenge.Controllers
             var result = await _creditLineService.GetCreditLine(id);
             return Ok(result);
         }
-        
+
         [HttpPost]
         [ServiceFilter(typeof(RequestLimitFilterAttribute))]
-        public async Task<IActionResult> ApplyCreditLine(ApplyCreditLineRequest creditLineRequest)
+        public async Task<ActionResult<ApplyCreditLineResponse>> ApplyCreditLine(ApplyCreditLineRequest creditLineRequest)
         {
             var creditLine = _mapper.Map<CreditLine>(creditLineRequest);
             var result = await _creditLineService.ProcessCreditLine(creditLine, HttpContext.GetRequestIp());
-            return Ok(result);
+            return Ok(new ApplyCreditLineResponse { IsApproved = result.IsApproved });
         }
     }
 }
