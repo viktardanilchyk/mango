@@ -12,7 +12,7 @@ namespace CodingChallenge.Application.CreditLineCalculator
             var monthlyCreditLine = creditLine.MonthlyRevenue / Constants.MonthlyRevenueRatio;
             var cashBalanceCreditLine = creditLine.CashBalance / Constants.CashBalanceRatio;
 
-            return Math.Max(monthlyCreditLine, cashBalanceCreditLine);
+            return decimal.Round(Math.Max(monthlyCreditLine, cashBalanceCreditLine), 2);
         }
     }
 }
