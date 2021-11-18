@@ -9,6 +9,7 @@ namespace Mango.Profiles
         public CreditLineProfile()
         {
             CreateMap<ApplyCreditLineRequest, CreditLine>(MemberList.Destination);
+            CreateMap<CreditLineRequest, ApplyCreditLineResponse>(MemberList.Destination);
         }
     }
 }

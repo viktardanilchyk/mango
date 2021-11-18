@@ -1,5 +1,4 @@
-﻿using System;
-using Mango.Core;
+﻿using Mango.Core;
 
 namespace Mango.ViewModels
 {
@@ -12,7 +11,5 @@ namespace Mango.ViewModels
         public decimal MonthlyRevenue { get; set; }
         
         public int RequestedCreditLine { get; set; }
-        
-        public DateTime RequestedDate { get; set; }
     }
 }

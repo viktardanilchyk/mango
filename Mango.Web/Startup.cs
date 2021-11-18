@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 using Mango.Application;
 using Mango.Attributes;
 using Mango.Persistence;
@@ -25,7 +26,9 @@ namespace Mango
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options => 
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
             services.ConfigureSwagger();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
